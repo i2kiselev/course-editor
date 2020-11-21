@@ -1,12 +1,15 @@
 package ru.isu.i2kiselev.courseeditor.model;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 
+@Data
 public class Section {
 
     private Integer id;
 
-    private Integer owner_id;
+    private Integer owner_course_section_id;
 
     private Integer order_number;
 
