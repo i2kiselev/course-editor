@@ -17,16 +17,10 @@ public class EditorService {
     private final static String REST_API = "http://jur.csscl.ru:4003";
 
     @Autowired
-    private RestTemplate restTemplate ;
+    private RestTemplate restTemplate;
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    public Course getCourseById(Integer id){
-        ResponseEntity<String> course = restTemplate.getForEntity(REST_API +"/courses/"+id ,String.class);
-        JsonNode payload = extractPayloadFromResponse(course);
-        return getCourseFromJson(payload);
-    }
 
     private JsonNode extractPayloadFromResponse(ResponseEntity<String> responseEntity) {
         try {
@@ -47,6 +41,12 @@ public class EditorService {
             log.info("Returned empty course");
             return new Course();
         }
+    }
+
+    public Course getCourseById(Integer id){
+        ResponseEntity<String> course = restTemplate.getForEntity(REST_API +"/courses/"+id ,String.class);
+        JsonNode payload = extractPayloadFromResponse(course);
+        return getCourseFromJson(payload);
     }
 
 }

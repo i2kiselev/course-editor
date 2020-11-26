@@ -17,4 +17,5 @@ public class AppConfig {
     public ObjectMapper getObjectMapper() {
         return new ObjectMapper();
     }
+
 }

@@ -13,6 +13,6 @@ public class Course {
 
     private String description;
 
-    private ArrayList<Section> structure;
+    private ArrayList<Level> structure;
 
 }
