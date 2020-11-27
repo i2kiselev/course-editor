@@ -8,6 +8,7 @@ import java.util.ArrayList;
 @Data
 public class Level {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer id;
 
     private Integer section_id;
