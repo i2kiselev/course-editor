@@ -6,10 +6,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.w3c.dom.html.HTMLTableCaptionElement;
 import ru.isu.i2kiselev.courseeditor.model.Course;
 import ru.isu.i2kiselev.courseeditor.model.Section;
 
@@ -40,11 +40,11 @@ public class EditorService {
     private Course getCourseFromJson(JsonNode node){
         try {
             Course course = objectMapper.readValue(node.toPrettyString(),Course.class);
-            log.info("Returned course with id"+course.getId());
+            log.debug("Returned course with id "+course.getId());
             return course;
         } catch (JsonProcessingException e) {
             log.warn(e);
-            log.info("Returned empty course");
+            log.debug("Returned empty course");
             return new Course();
         }
     }
@@ -52,11 +52,11 @@ public class EditorService {
     private List<Course> getCourseListFromJson(JsonNode node){
         try {
             List<Course> course = objectMapper.readValue(node.toPrettyString(), objectMapper.getTypeFactory().constructCollectionType(List.class,Course.class));
-            log.info("Returned course list");
+            log.debug("Returned course list");
             return course;
         } catch (JsonProcessingException e) {
             log.warn(e);
-            log.info("Returned empty course list");
+            log.debug("Returned empty course list");
             return new ArrayList<Course>();
         }
     }
@@ -64,11 +64,11 @@ public class EditorService {
     private Section getSectionFromJson(JsonNode node) {
         try {
             Section section = objectMapper.readValue(node.toPrettyString(),Section.class);
-            log.info("Returned course with id"+section.getId());
+            log.debug("Returned course with id "+section.getId());
             return section;
         } catch (JsonProcessingException e) {
             log.warn(e);
-            log.info("Returned empty course");
+            log.debug("Returned empty course");
             return new Section();
         }
     }
@@ -76,26 +76,33 @@ public class EditorService {
     private List<Section> getSectionListFromJson(JsonNode node){
         try {
             List<Section> sections = objectMapper.readValue(node.toPrettyString(), objectMapper.getTypeFactory().constructCollectionType(List.class,Section.class));
-            log.info("Returned section list");
+            log.debug("Returned section list");
             return sections;
         } catch (JsonProcessingException e) {
             log.warn(e);
-            log.info("Returned empty section list");
+            log.debug("Returned empty section list");
             return new ArrayList<Section>();
         }
     }
 
-    public String writeObjectToJson(Object object) {
+    private String writeObjectToJson(Object object) {
         try {
             String json = objectMapper.writeValueAsString(object);
             log.debug("Returned object json");
             return json;
         } catch (JsonProcessingException e) {
             log.warn(e);
-            log.info("Returned empty json string");
+            log.debug("Returned empty json string");
             return "";
         }
     }
+
+    private HttpEntity<String> getHttpEntityWithJsonHeader(Object body){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new HttpEntity<>(writeObjectToJson(body), headers);
+    }
+
     public Course getCourseById(Integer id){
         ResponseEntity<String> course = restTemplate.getForEntity(REST_API +"/courses/"+id ,String.class);
         return getCourseFromJson(extractPayloadFromResponse(course));
@@ -117,7 +124,10 @@ public class EditorService {
     }
 
     public String createSection(Section section){
-        HttpEntity<String> newSection = new HttpEntity<>(writeObjectToJson(section));
-        return restTemplate.postForObject(REST_API+"/sections", newSection, String.class);
+        return restTemplate.postForObject(REST_API+"/sections", getHttpEntityWithJsonHeader(section), String.class);
+    }
+
+    public void updateSection(Section section){
+        restTemplate.exchange(REST_API+"/sections/"+section.getId(), HttpMethod.PUT, getHttpEntityWithJsonHeader(section), Void.class);
     }
 }
