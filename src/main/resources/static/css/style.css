@@ -35,11 +35,7 @@ html, body {
 #new_here{
     margin-top: 1rem;
 }
-
-form[action="/console/addProduct"],
-form[action="/console/addRoll"],
-form[action="/console/addRollset"],
-form[action="/home/addRollset"]{
+.form{
     width: 100%;
     position: fixed;
     top: 20%;
@@ -49,25 +45,6 @@ form[action="/home/addRollset"]{
     align-content: center;
     justify-content: center;
     flex-direction: column;
-}
-
-form[action="/console/addProduct"] .form-group,
-form[action="/console/addRoll"] .form-group,
-form[action="/console/addRollset"] .form-group,
-form[action="/home/addRollset"] .form-group{
-    width: 25%;
-}
-
-form[action="/console/addRollset"] .form-group:last-child{
-    width: 50%;
-}
-
-form[action="/console/addProduct"] .btn-wrap,
-form[action="/console/addRoll"] .btn-wrap,
-form[action="/console/addRollset"] .btn-wrap,
-form[action="/home/addRollset"] .btn-wrap{
-    display: block;
-    width: 15%;
 }
 
 
@@ -106,6 +83,8 @@ form[action="/home/addRollset"] .btn-wrap{
 
 .sections-wrap{
     width: 100%;
+    text-align: center;
+    display: flex;
 }
 
 .pagination_list{

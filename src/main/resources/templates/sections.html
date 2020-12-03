@@ -27,7 +27,7 @@
         <tr th:each="section: ${sections}">
             <td th:text="${section.id}"></td>
             <td th:text="${section.name}"></td>
-            <td th:text="${#strings.substring(section.content,0,20)+'...'}"></td>
+            <td th:text="${#strings.abbreviate(section.content,20)+'...'}"></td>
             <td><a th:href="@{/sections/{id}( id= ${section.id})}">Edit</a></td>
         </tr>
         </tbody>

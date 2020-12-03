@@ -3,4 +3,4 @@ spring:
     name: course-editor
 logging:
   level:
-    root: INFO
+    root: info

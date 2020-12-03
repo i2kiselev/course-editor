@@ -20,14 +20,15 @@
 <!--<div th:replace="fragments/console_navbar"></div>-->
 <div id="form" >
      <h2 th:text="${section.name}"></h2>
-    <form th:action="@{/createSection}" action="#" th:object="${section}" method="post">
+    <form th:action="@{/sections/{id}( id= ${section.id})}" action="#" th:object="${section}" method="post">
+        <input type="hidden" th:field="*{id}"/>
         <div class="form-group">
             <label for="name">Section name</label>
             <input type="text" th:value="*{name}" th:field="*{name}" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name">
         </div>
         <div class="form-group">
             <label for="content">Content</label>
-            <input type="text" th:value="*{content}" th:field="*{content}" class="form-control" id="content" placeholder="Enter content">
+            <textarea  th:value="*{content}" th:field="*{content}" class="form-control" id="content" placeholder="Enter content"></textarea>
         </div>
         <div class="btn-wrap">
             <button type="submit" class="btn btn-primary">Submit</button>
