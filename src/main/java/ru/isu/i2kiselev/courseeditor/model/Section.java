@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class Section {
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer id;
 

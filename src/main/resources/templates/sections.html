@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add section</title>
+    <title>Sections</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -18,22 +18,18 @@
 </head>
 <body>
 <!--<div th:replace="fragments/console_navbar"></div>-->
-<div id="form" >
-    <h2></h2>
-    <form th:action="@{/editor/createSection}" action="#" th:object="${section}" method="post">
-        <div class="form-group">
-            <label for="name">Section name</label>
-            <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name">
-        </div>
-        <div class="form-group">
-            <label for="content">Content</label>
-            <input type="text" th:field="*{content}" class="form-control" id="content" placeholder="Enter content">
-        </div>
-        <div class="btn-wrap">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="reset" class="btn btn-secondary">Reset</button>
-        </div>
-    </form>
+<div class="sections-wrap">
+    <table class="table">
+        <thead>
+        </thead>
+        <tbody>
+        <tr th:each="section: ${sections}">
+            <td th:text="${section.id}"></td>
+            <td th:text="${section.name}"></td>
+            <td th:text="${#strings.substring(section.content,0,20)+'...'}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

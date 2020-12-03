@@ -64,4 +64,11 @@ public class EditorController {
         log.info("Returned section creation page");
         return "add-section";
     }
+
+   @GetMapping("/getAllSections")
+    public String getAllSections(Model model){
+        model.addAttribute("sections", editorService.getAllSections());
+        log.info("Returned sections page");
+        return "sections";
+    }
 }
