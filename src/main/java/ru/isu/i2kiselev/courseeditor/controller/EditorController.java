@@ -16,7 +16,6 @@ package ru.isu.i2kiselev.courseeditor.controller;
 
 
 @Slf4j
-@RequestMapping("/editor")
 @Controller
 public class EditorController {
 
@@ -51,24 +50,32 @@ public class EditorController {
         return "";
     }*/
 
-    @GetMapping("/createSection")
+    @GetMapping("/sections/createSection")
     public String createSectionForm(Model model){
         model.addAttribute("section", new Section());
         log.info("Returned section creation page");
         return "add-section";
     }
 
-    @PostMapping("/createSection")
+    @PostMapping("/sections/createSection")
     public String saveSection(@ModelAttribute("section") Section section){
         editorService.createSection(section);
         log.info("Returned section creation page");
         return "add-section";
     }
 
-   @GetMapping("/getAllSections")
+    @GetMapping("/sections/{sectionId}")
+    public String createSectionForm(@PathVariable("sectionId") Integer sectionId, Model model){
+        model.addAttribute("section", editorService.getSectionById(sectionId));
+        log.info("Returned section creation page");
+        return "edit-section";
+    }
+
+    @GetMapping("/sections/getAllSections")
     public String getAllSections(Model model){
         model.addAttribute("sections", editorService.getAllSections());
         log.info("Returned sections page");
         return "sections";
     }
+
 }

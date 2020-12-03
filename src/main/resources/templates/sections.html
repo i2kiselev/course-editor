@@ -19,6 +19,7 @@
 <body>
 <!--<div th:replace="fragments/console_navbar"></div>-->
 <div class="sections-wrap">
+    <a th:href="@{/sections/createSection}">Add new section</a>
     <table class="table">
         <thead>
         </thead>
@@ -27,6 +28,7 @@
             <td th:text="${section.id}"></td>
             <td th:text="${section.name}"></td>
             <td th:text="${#strings.substring(section.content,0,20)+'...'}"></td>
+            <td><a th:href="@{/sections/{id}( id= ${section.id})}">Edit</a></td>
         </tr>
         </tbody>
     </table>

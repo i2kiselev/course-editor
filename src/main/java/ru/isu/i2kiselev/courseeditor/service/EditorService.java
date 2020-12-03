@@ -15,6 +15,7 @@ import ru.isu.i2kiselev.courseeditor.model.Section;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -113,10 +114,9 @@ public class EditorService {
         return getCourseListFromJson(extractPayloadFromResponse(courses));
     }
 
-    /*public Section getSectionById(Integer id){
-        ResponseEntity<String> section = restTemplate.getForEntity(REST_API+"/sections/"+id, String.class);
-        return getSectionFromJson(extractPayloadFromResponse(section));
-    }*/
+    public Section getSectionById(Integer id){
+        return getAllSections().stream().filter(x-> x.getId().equals(id)).findFirst().orElse(new Section());
+    }
 
     public List<Section> getAllSections(){
         ResponseEntity<String> sections = restTemplate.getForEntity(REST_API+"/sections",String.class);
