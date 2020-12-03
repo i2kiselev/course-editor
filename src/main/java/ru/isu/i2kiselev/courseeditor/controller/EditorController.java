@@ -50,40 +50,6 @@ public class EditorController {
         return "";
     }*/
 
-    @GetMapping("/sections/createSection")
-    public String createSectionForm(Model model){
-        model.addAttribute("section", new Section());
-        log.info("Returned section creation page");
-        return "add-section";
-    }
 
-    @PostMapping("/sections/createSection")
-    public String saveSection(@ModelAttribute("section") Section section){
-        editorService.createSection(section);
-        log.info("Returned section creation page");
-        return "add-section";
-    }
-
-    @GetMapping("/sections/{sectionId}")
-    public String createSectionForm(@PathVariable("sectionId") Integer sectionId, Model model){
-        model.addAttribute("section", editorService.getSectionById(sectionId));
-        System.out.println(editorService.getSectionById(sectionId));
-        log.info("Returned editing page for section with id "+sectionId);
-        return "edit-section";
-    }
-
-    @PostMapping("/sections/{sectionId}")
-    public String finishSectionEditing(@ModelAttribute("section") Section section, @PathVariable("sectionId") Integer sectionId, Model model){
-        System.out.println(section);
-        editorService.updateSection(section);
-        return "redirect:/sections/getAllSections";
-    }
-
-    @GetMapping("/sections/getAllSections")
-    public String getAllSections(Model model){
-        model.addAttribute("sections", editorService.getAllSections());
-        log.info("Returned sections page");
-        return "sections";
-    }
 
 }
