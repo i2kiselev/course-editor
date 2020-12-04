@@ -35,7 +35,7 @@ html, body {
 #new_here{
     margin-top: 1rem;
 }
-.form{
+form{
     width: 100%;
     position: fixed;
     top: 20%;

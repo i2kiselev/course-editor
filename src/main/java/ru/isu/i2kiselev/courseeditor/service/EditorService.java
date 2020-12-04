@@ -139,5 +139,13 @@ public class EditorService {
         return restTemplate.postForObject(REST_API+"/courses",getHttpEntityWithJsonHeader(course), String.class);
     }
 
+    public void updateCourse(Course course){
+        log.info("Course "+course.getName()+" updated");
+        restTemplate.exchange(REST_API+"/courses/"+course.getId(), HttpMethod.PUT, getHttpEntityWithJsonHeader(course), Void.class);
+    }
+
+    /*public String addSectionToCourse(Course course, Section section, Section parentSection){
+
+    }*/
 
 }

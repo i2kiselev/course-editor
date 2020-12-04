@@ -15,6 +15,7 @@ public class Course {
 
     private String description;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private ArrayList<Level> structure;
 
 }
