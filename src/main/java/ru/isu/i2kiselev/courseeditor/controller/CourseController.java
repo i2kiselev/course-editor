@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.isu.i2kiselev.courseeditor.model.Course;
 import ru.isu.i2kiselev.courseeditor.model.Section;
 import ru.isu.i2kiselev.courseeditor.service.EditorService;
@@ -36,17 +33,16 @@ public class CourseController {
         return "add-course";
     }
 
-    @GetMapping("/editCourse")
-    public String editCourse(Model model){
-        model.addAttribute("course", new Course());
-        log.info("Returned course creation page");
-        return "add-course";
+    @GetMapping("/{courseId}")
+    public String editCourse(@PathVariable("courseId") Integer courseId, Model model){
+        model.addAttribute("course", editorService.getCourseWithoutStructureById(courseId));
+        log.info("Returned course edition page");
+        return "edit-course";
     }
 
-    @PostMapping("/editCourse")
-    public String editCourse(@ModelAttribute("course") Course course){
+    @PostMapping("/{courseId}")
+    public String editCourse(@ModelAttribute("section") Course course, @PathVariable("courseId") Integer courseId, Model model){
         editorService.updateCourse(course);
-        log.info("Returned section creation page");
-        return "add-course";
+        return "redirect:/courses/allCourses";
     }
 }

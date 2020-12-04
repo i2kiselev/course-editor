@@ -124,6 +124,9 @@ public class EditorService {
         return getSectionListFromJson(extractPayloadFromResponse(sections));
     }
 
+    public Course getCourseWithoutStructureById(Integer id){
+        return getAllCourses().stream().filter(x-> x.getId().equals(id)).findFirst().orElse(new Course());
+    }
     public String createSection(Section section){
         log.info("Section "+section.getName()+" saved");
         return restTemplate.postForObject(REST_API+"/sections", getHttpEntityWithJsonHeader(section), String.class);

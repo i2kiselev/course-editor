@@ -34,19 +34,17 @@ public class SectionController {
     @GetMapping("/{sectionId}")
     public String createSectionForm(@PathVariable("sectionId") Integer sectionId, Model model){
         model.addAttribute("section", editorService.getSectionById(sectionId));
-        System.out.println(editorService.getSectionById(sectionId));
         log.info("Returned editing page for section with id "+sectionId);
         return "edit-section";
     }
 
     @PostMapping("/{sectionId}")
     public String finishSectionEditing(@ModelAttribute("section") Section section, @PathVariable("sectionId") Integer sectionId, Model model){
-        System.out.println(section);
         editorService.updateSection(section);
-        return "redirect:/sections/getAllSections";
+        return "redirect:/sections/allSections";
     }
 
-    @GetMapping("/getAllSections")
+    @GetMapping("/allSections")
     public String getAllSections(Model model){
         model.addAttribute("sections", editorService.getAllSections());
         log.info("Returned sections page");
