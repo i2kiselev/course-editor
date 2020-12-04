@@ -1,6 +1,7 @@
 package ru.isu.i2kiselev.courseeditor.controller;
 
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +10,7 @@ import ru.isu.i2kiselev.courseeditor.model.Section;
 import ru.isu.i2kiselev.courseeditor.service.EditorService;
 
 @Controller
-@Log4j2
+@Slf4j
 @RequestMapping("/sections/")
 public class SectionController {
 

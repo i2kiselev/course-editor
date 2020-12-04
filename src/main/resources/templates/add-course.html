@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit section</title>
+    <title>Add course</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -19,16 +19,15 @@
 <body>
 <!--<div th:replace="fragments/console_navbar"></div>-->
 <div id="form" >
-     <h2 th:text="${section.name}"></h2>
-    <form th:action="@{/sections/{id}( id= ${section.id})}" action="#" th:object="${section}" method="post">
-        <input type="hidden" th:field="*{id}"/>
+    <h2></h2>
+    <form th:action="@{/sections/createCourse}" action="#" th:object="${course}" method="post">
         <div class="form-group">
-            <label for="name">Section name</label>
-            <input type="text" th:value="*{name}" th:field="*{name}" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name">
+            <label for="name">Course name</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name">
         </div>
         <div class="form-group">
-            <label for="content">Content</label>
-            <textarea  th:value="*{content}" th:field="*{content}" class="form-control" id="content" placeholder="Enter content"></textarea>
+            <label for="content">Description</label>
+            <textarea th:field="*{description}" class="form-control" id="content" placeholder="Enter content"> </textarea>
         </div>
         <div class="btn-wrap">
             <button type="submit" class="btn btn-primary">Submit</button>

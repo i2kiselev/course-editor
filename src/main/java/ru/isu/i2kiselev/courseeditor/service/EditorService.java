@@ -101,6 +101,7 @@ public class EditorService {
     private HttpEntity<String> getHttpEntityWithJsonHeader(Object body){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        log.debug("Returned HttpEntity with JSON media type");
         return new HttpEntity<>(writeObjectToJson(body), headers);
     }
 
@@ -124,10 +125,19 @@ public class EditorService {
     }
 
     public String createSection(Section section){
+        log.info("Section "+section.getName()+" saved");
         return restTemplate.postForObject(REST_API+"/sections", getHttpEntityWithJsonHeader(section), String.class);
     }
 
     public void updateSection(Section section){
+        log.info("Section "+section.getName()+" updated");
         restTemplate.exchange(REST_API+"/sections/"+section.getId(), HttpMethod.PUT, getHttpEntityWithJsonHeader(section), Void.class);
     }
+
+    public String createCourse(Course course){
+        log.info("Course "+course.getName()+" saved");
+        return restTemplate.postForObject(REST_API+"/courses",getHttpEntityWithJsonHeader(course), String.class);
+    }
+
+
 }
