@@ -14,8 +14,11 @@ import ru.isu.i2kiselev.courseeditor.service.EditorService;
 @RequestMapping("/sections/")
 public class SectionController {
 
-    @Autowired
-    private EditorService editorService;
+    private final EditorService editorService;
+
+    public SectionController(EditorService editorService) {
+        this.editorService = editorService;
+    }
 
     @GetMapping("/createSection")
     public String createSectionForm(Model model){

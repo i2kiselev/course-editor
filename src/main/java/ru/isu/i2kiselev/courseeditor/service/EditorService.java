@@ -23,11 +23,14 @@ public class EditorService {
 
     private final static String REST_API = "http://jur.csscl.ru:4003";
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
+
+    public EditorService(RestTemplate restTemplate, ObjectMapper objectMapper) {
+        this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
+    }
 
     private JsonNode extractPayloadFromResponse(ResponseEntity<String> responseEntity) {
         try {
@@ -147,8 +150,9 @@ public class EditorService {
         restTemplate.exchange(REST_API+"/courses/"+course.getId(), HttpMethod.PUT, getHttpEntityWithJsonHeader(course), Void.class);
     }
 
-    /*public String addSectionToCourse(Course course, Section section, Section parentSection){
+    public String addSectionToCourse(Course course, Section section, Section parentSection){
 
-    }*/
+        return "";
+    }
 
 }

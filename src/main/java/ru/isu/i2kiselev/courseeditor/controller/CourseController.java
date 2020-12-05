@@ -16,8 +16,11 @@ import ru.isu.i2kiselev.courseeditor.service.EditorService;
 @RequestMapping("/courses/")
 public class CourseController {
 
-    @Autowired
-    private EditorService editorService;
+    private final EditorService editorService;
+
+    public CourseController(EditorService editorService) {
+        this.editorService = editorService;
+    }
 
     @GetMapping("/createCourse")
     public String createCourseForm(Model model){
