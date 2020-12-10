@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.html.HTMLTableCaptionElement;
 import ru.isu.i2kiselev.courseeditor.model.Course;
+import ru.isu.i2kiselev.courseeditor.model.Question;
 import ru.isu.i2kiselev.courseeditor.model.Section;
 
 import java.util.ArrayList;
@@ -98,6 +99,18 @@ public class EditorService {
         }
     }
 
+    private List<Question> getQuestionsListFromJson(JsonNode node) {
+        try {
+            List<Question> questions = objectMapper.readValue(node.toPrettyString(), objectMapper.getTypeFactory().constructCollectionType(List.class, Question.class));
+            log.debug("Returned question list");
+            return questions;
+        } catch (JsonProcessingException e) {
+            log.warn(e);
+            log.debug("Returned empty json string");
+            return new ArrayList<Question>();
+        }
+    }
+
     private HttpEntity<String> getHttpEntityWithJsonHeader(Object body){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -129,5 +142,18 @@ public class EditorService {
 
     public void updateSection(Section section){
         restTemplate.exchange(REST_API+"/sections/"+section.getId(), HttpMethod.PUT, getHttpEntityWithJsonHeader(section), Void.class);
+    }
+
+    public void deleteSection(Integer sectionId){
+        restTemplate.delete(REST_API+"/sections/"+sectionId);
+    }
+
+    public List<Question> getAllQuestionsBySectionId(Integer sectionId) {
+        ResponseEntity<String> questions = restTemplate.getForEntity(REST_API + "/sections/" + sectionId + "/questions", String.class);
+        return getQuestionsListFromJson(extractPayloadFromResponse(questions));
+    }
+
+    public String createQuestion(Integer sectionId, Question question) {
+        return restTemplate.postForObject(REST_API+"/sections/"+sectionId+"/questions", getHttpEntityWithJsonHeader(question), String.class);
     }
 }

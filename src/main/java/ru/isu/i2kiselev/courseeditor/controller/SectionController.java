@@ -51,4 +51,10 @@ public class SectionController {
         log.info("Returned sections page");
         return "sections";
     }
+    
+    @DeleteMapping("/{sectionId}")
+    public String deleteSection(@PathVariable("sectionId") Integer sectionId) {
+        editorService.deleteSection(sectionId);
+        return "redirect:/sections/getAllSections";
+    }
 }
