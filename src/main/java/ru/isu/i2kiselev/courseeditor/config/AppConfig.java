@@ -1,6 +1,7 @@
 package ru.isu.i2kiselev.courseeditor.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -15,7 +16,10 @@ public class AppConfig {
 
     @Bean
     public ObjectMapper getObjectMapper() {
-        return new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setPropertyNamingStrategy(
+                PropertyNamingStrategy.SNAKE_CASE);
+        return mapper;
     }
 
 }

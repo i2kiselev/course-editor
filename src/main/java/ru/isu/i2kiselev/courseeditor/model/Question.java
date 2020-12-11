@@ -8,8 +8,17 @@ public class Question {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer id;
+
     private Integer ownerSectionId;
+
     private String text;
+
     private Integer orderNumber;
+
+    private Integer points;
+
+    private Boolean isRight;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String questionType;
 }
