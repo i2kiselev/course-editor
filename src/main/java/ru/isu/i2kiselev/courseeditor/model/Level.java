@@ -11,18 +11,18 @@ public class Level {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer id;
 
-    private Integer section_id;
+    private Integer sectionId;
 
-    private Integer owner_course_section_id;
+    private Integer ownerCourseSectionId;
 
-    private Integer order_number;
+    private Integer orderNumber;
 
-    private String level_name;
+    private String levelName;
 
     private Section section;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private ArrayList<Level> nested_course_sections;
+    private ArrayList<Level> nestedCourseSections;
 
 
 }
