@@ -10,7 +10,7 @@ import ru.isu.i2kiselev.courseeditor.service.EditorService;
 
 @Controller
 @Log4j2
-@RequestMapping("/sections/")
+@RequestMapping("/questions/")
 public class QuestionController {
 
     @Autowired

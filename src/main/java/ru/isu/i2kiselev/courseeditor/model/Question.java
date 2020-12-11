@@ -17,6 +17,8 @@ public class Question {
 
     private Integer points;
 
+    private Integer complexity;
+
     private Boolean isRight;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
